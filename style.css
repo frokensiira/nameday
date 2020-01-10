@@ -15,6 +15,15 @@ h1{
 .card-text{
     font-size: 1.5rem;
 }
+
+.form-wrapper,
+.output-wrapper {
+    max-width: 500px;
+}
+
+#name-list{
+    list-style-type: none;
+}
  
 /* button{
 margin:0auto;
