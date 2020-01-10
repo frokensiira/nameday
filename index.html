@@ -9,30 +9,44 @@
 </head>
 <body>
 
-    <section class="container">
+    <section class="container wrapper">
+
         <h1>Name day</h1>
+
         <form>
-        <div class="form-row">
-        <div class="col">
-        <input type="text" class="form-control" placeholder="Name">
-        </div>
-        <div class="col">
-            <select class="custom-select custom-select form-control">
-                <option selected>Country</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-        <!-- <input type="text" class="form-control" placeholder="Country"> -->
-        </div>
-        </div>
-        <label for="start">Enter a day</label>
-        <input class="date" type="date" id="start" name="trip-start"
-        value="YYYY-MM-DD"
-        min="2018-01-01" max="2018-12-31">
-        <button type="submit" class="btn btn-dark">Submit</button>
+            <div class="form-row">
+                <div class="form-group col-md-6 name">
+                        <label for="start">Search By Name</label>
+                        <input type="text" class="form-control name" placeholder="Name">
+                </div>
+                <div class="form-group col-md-6 date" >
+                        <label for="start">Search By Date</label>
+                        <input type="date" id="start" class="form-control date">
+                </div>
+            </div>
+            <label for="start">Choose Country and Time zone</label>
+            <div class="form-row">
+                <div class="form-group col-md-6 country">
+                    <select class="custom-select custom-select form-control">
+                        <option selected>Country</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6 timezone">
+                    <select class="custom-select custom-select form-control">
+                        <option selected>Time zone</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit</button>
         </form>
-        </section>
+    </section>
 
 
     <script src="nameday.js"></script>
