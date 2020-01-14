@@ -10,125 +10,146 @@
 <body>
 
     <header class="jumbotron">
-        <h1 class="display-4">Name day</h1>
+        <h1 class="display-4">Name Day</h1>
     </header>
 
     <section class="container form-wrapper mx-auto">
         <form>
             <div class="mx-auto">
-            <div class="form-row">
-                <div class="form-group col-md-12 country">
-                    <label for="start" class="font-weight-bold">Choose Country</label>
-                    <select class="custom-select custom-select form-control" id="country">
-                        <!-- <option>Country</option> -->
-                        <option value="se" selected>Sweden</option>
-                        <option value="at">Austria</option>
-                        <option value="hr">Croatia</option>
-                        <option value="cz">Czechia</option>
-                        <option value="dk">Denmark</option>
-                        <option value="fi">Finland</option>
-                        <option value="fr">France</option>
-                        <option value="de">Germany</option>
-                        <option value="hu">Hungary</option>
-                        <option value="it">Italy</option>
-                        <option value="pl">Poland</option>
-                        <option value="sk">Slovakia</option>
-                        <option value="es">Spain</option>
-                        <option value="us">United States of America</option>
-                    </select>
-                </div>
-
-<!--                 <div class="form-group col-md-12 timezone">
-                    <label for="start" class="font-weight-bold">Choose Timezone</label>
-                    <select class="custom-select custom-select form-control">
-                        <option selected>Time zone</option>
-                        <option value="Europe/Stockholm" selected>Europe/Stockholm</option>
-                        <option value="America/Los_Angeles">America/Los_Angeles</option>
-                        <option value="America/New_York">America/New_York</option>
-                        <option value="Asia/Tokyo">Asia/Tokyo</option>
-                    </select>
-                </div> -->
-            </div>
-
-            <div id="buttons">
-                <button type="button" class="btn btn-dark" id="button-choose-by-name">Search By Name</button>
-                <button type="button" class="btn btn-dark" id="button-choose-by-date">Search By Date</button>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12 d-none" id="search-by-name">
-                    <label for="start" class="font-weight-bold">Search By Name</label>
-                    <input type="text" class="form-control mb-3" id="name" placeholder="Name">
-                    <button type="submit" class="btn btn-dark" id="search-by-name">Search</button>
-                    <button class="btn btn-dark back-button">Back</button>
-                </div>
-
-            </div>
-
-            <div class="date d-none" id="search-by-date">
-                <label for="start" class="font-weight-bold">Search By Date</label>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="start">Month</label>
-                        <select class="custom-select custom-select form-control" id="months">
-                            <option value="" id="month-selected"></option>
-                            <option value="1">January</option>
-                            <option value="2">Febraury</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">Oktober</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                    <div class="form-group col-md-12 country">
+                        <label for="country" class="font-weight-bold">Choose Country</label>
+                        <select class="custom-select custom-select form-control" id="country" name="country" required>
 
+                            <option value="">Choose country</option>
+                            <option value="at">Austria</option>
+                            <option value="hr">Croatia</option>
+                            <option value="cz">Czechia</option>
+                            <option value="dk">Denmark</option>
+                            <option value="fi">Finland</option>
+                            <option value="fr">France</option>
+                            <option value="de">Germany</option>
+                            <option value="hu">Hungary</option>
+                            <option value="it">Italy</option>
+                            <option value="pl">Poland</option>
+                            <option value="sk">Slovakia</option>
+                            <option value="es">Spain</option>
+                            <option value="se">Sweden</option>
+                            <option value="us">United States of America</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="start">Day</label>
-                        <select class="custom-select custom-select form-control" id="days">
-                            <option value="" id="day-selected"></option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
+                </div>
 
+                <div class="form-group" id="buttons">
+                    <button type="button" class="btn btn-dark my-2" id="button-choose-today">Todays Name Day</button>
+                    <button type="button" class="btn btn-dark" id="button-choose-by-name">Search By Name</button>
+                    <button type="button" class="btn btn-dark" id="button-choose-by-date">Search By Date</button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12 d-none" id="choose-timezone">
+                        <label for="timezone" class="font-weight-bold">Choose Timezone</label>
+                        <select class="custom-select custom-select form-control" id="timezone" name="timezone">
+                            <option value="" selected>Time zone</option>
+                            <option value="America/New_York">America/New_York</option>
+                            <option value="Europe/Berlin">Europe/Berlin</option>
+                            <option value="Europe/Bratislava">Europe/Bratislava</option>
+                            <option value="Europe/Budapest">Europe/Budapest</option>
+                            <option value="Europe/Copenhagen">Europe/Copenhagen</option>
+                            <option value="Europe/Helsinki">Europe/Helsinki</option>
+                            <option value="Europe/Madrid">Europe/Madrid</option>
+                            <option value="Europe/Paris">Europe/Paris</option>
+                            <option value="Europe/Prague">Europe/Prague</option>
+                            <option value="Europe/Rome">Europe/Rome</option>
+                            <option value="Europe/Stockholm">Europe/Stockholm</option>
+                            <option value="Europe/Vienna">Europe/Vienna</option>
+                            <option value="Europe/Warsaw">Europe/Warsaw</option>
+                            <option value="Europe/Zagreb">Europe/Zagreb</option>
                         </select>
 
+                        <button type="submit" class="btn btn-dark my-4" id="search-today">Search Todays Name day</button>
+                        <button type="button" class="btn btn-dark back-button">Back</button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12 d-none" id="search-by-name">
+                        <label for="name" class="font-weight-bold">Search By Name</label>
+                        <input type="text" class="form-control mb-3" id="name" name="name" placeholder="Name">
+                        <button type="submit" class="btn btn-dark" id="search-by-name">Search</button>
+                        <button type="button" class="btn btn-dark back-button">Back</button>
+                    </div>
 
                 </div>
-                <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-dark" id="search-by-date">Search</button>
-                    <button class="btn btn-dark back-button">Back</button>
+
+                <div class="date d-none" id="search-by-date">
+                    <label for="search-by-date" class="font-weight-bold">Search By Date</label>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="months">Month</label>
+                            <select class="custom-select custom-select form-control" id="months" name="months">
+                                <option value="" id="month-selected"></option>
+                                <option value="1">January</option>
+                                <option value="2">Febraury</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="days">Day</label>
+                            <select class="custom-select custom-select form-control" id="days" name="days">
+                                <option value=""></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <button type="submit" class="btn btn-dark" id="search-by-date">Search</button>
+                            <button type="button" class="btn btn-dark back-button">Back</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
