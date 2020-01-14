@@ -9,27 +9,52 @@ const getNameDayByName = (inputName, inputCountry) => {
         return response.json();
     }).then(data => {
 
-        //Function to convert input name to name syntax, i.e. "Name"
-        const capitalizeFirstLetter = (inputName) =>{
-            return inputName.charAt(0).toUpperCase() + inputName.slice(1);
-        }
-
-        //Call capitalize function above and save result in newName
-        let newName = capitalizeFirstLetter(inputName);
+        console.log(data.results);
         
         //Go through the array of object results and choose only the ones that is a perfect match to input
         data.results.forEach(object => {
+            
+            let arrayOfObject = object.name.split(', ');
+            console.log('new array of object is:', arrayOfObject);
+            
+            arrayOfObject.forEach(name => {
+
+                if(name.toLowerCase() === inputName.toLowerCase()){
+                    console.log(name);
+                    console.log(object);
+                    console.log('i hope this is the right array', arrayOfObject);
+
+                    let othersWithNameDay = arrayOfObject.filter((name) => {
+                        console.log('name is', name);
+
+
+                        if(name.toLowerCase() !== inputName.toLowerCase()){
+                            return true;
+                        }
+                    });
+
+                    console.log('others with name day are', othersWithNameDay);
+
+                    renderNameResult(name, object.month, object.day, othersWithNameDay);
+
+                }
+                
+            })
+
+
+
 
             //Check if the converted input name is included in any of the objects. If so, call the renderNameResult with relevant data
-            if(object.name.includes(newName + ',') ){
+            //if(object.name.includes(newName + ',') ){
 
                 //Find the others who also have name day the same day
-                nameLength = newName.length;
+/*                 nameLength = newName.length;
                 newNameLength = nameLength + 2;
-                let othersWithNameDay = object.name.slice(newNameLength);
+                let othersWithNameDay = object.name.slice(newNameLength); */
                 
-                renderNameResult(newName, object.month, object.day, othersWithNameDay);
-            }
+                //renderNameResult(newName, object.month, object.day, othersWithNameDay);
+                //renderNameResult(newName, object.month, object.day, object.name);
+            //}
         });
 
     }).catch(err => { 

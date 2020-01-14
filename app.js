@@ -181,9 +181,21 @@ const renderTodayResult = (names) => {
 
 
 
+const points = [42, 3, 16, 8, 84];
 
+const filteredPoints = [];
 
+for(let i = 0; i < points.length; i++ ){
 
+    
+    if(points[i] > 8){
+        filteredPoints.push(points[i]);
+        
+    }
+    
+}
+
+console.log(filteredPoints);
 
 
 
