@@ -54,6 +54,8 @@ form.addEventListener('click', (e) => {
 //When user clicks Search, check which 
 form.addEventListener('submit', (e) => {
 
+    output.innerHTML = '';
+
     e.preventDefault();
 
     const inputName = document.querySelector('#name').value.trim().toLowerCase();
@@ -177,25 +179,11 @@ const renderTodayResult = (names) => {
 
 };
 
-//<ul id="names-today"></ul>
 
 
 
-const points = [42, 3, 16, 8, 84];
 
-const filteredPoints = [];
 
-for(let i = 0; i < points.length; i++ ){
-
-    
-    if(points[i] > 8){
-        filteredPoints.push(points[i]);
-        
-    }
-    
-}
-
-console.log(filteredPoints);
 
 
 

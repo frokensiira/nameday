@@ -9,7 +9,13 @@ const getNameDayByName = (inputName, inputCountry) => {
         return response.json();
     }).then(data => {
 
-        console.log(data.results);
+        console.log('data result is', data.results);
+        //If the result is empty, let the user know that the name does not exist as name day in chosen country
+        if(data.results.length === 0){
+            throw err;
+        }
+
+        
         
         //Go through the array of object results and choose only the ones that is a perfect match to input
         data.results.forEach(object => {
@@ -20,9 +26,6 @@ const getNameDayByName = (inputName, inputCountry) => {
             arrayOfObject.forEach(name => {
 
                 if(name.toLowerCase() === inputName.toLowerCase()){
-                    console.log(name);
-                    console.log(object);
-                    console.log('i hope this is the right array', arrayOfObject);
 
                     let othersWithNameDay = arrayOfObject.filter((name) => {
                         console.log('name is', name);
@@ -33,28 +36,10 @@ const getNameDayByName = (inputName, inputCountry) => {
                         }
                     });
 
-                    console.log('others with name day are', othersWithNameDay);
-
                     renderNameResult(name, object.month, object.day, othersWithNameDay);
-
-                }
+                } 
                 
             })
-
-
-
-
-            //Check if the converted input name is included in any of the objects. If so, call the renderNameResult with relevant data
-            //if(object.name.includes(newName + ',') ){
-
-                //Find the others who also have name day the same day
-/*                 nameLength = newName.length;
-                newNameLength = nameLength + 2;
-                let othersWithNameDay = object.name.slice(newNameLength); */
-                
-                //renderNameResult(newName, object.month, object.day, othersWithNameDay);
-                //renderNameResult(newName, object.month, object.day, object.name);
-            //}
         });
 
     }).catch(err => { 
