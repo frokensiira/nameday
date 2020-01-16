@@ -1,140 +1,126 @@
-const buttonChooseToday = document.querySelector('#button-choose-today');
 
-const buttonChooseByName = document.querySelector('#button-choose-by-name');
-
+//Buttons
 const buttonChooseByDate = document.querySelector('#button-choose-by-date');
+const buttonChooseByName = document.querySelector('#button-choose-by-name');
+const buttonChooseToday = document.querySelector('#button-choose-today');
+const buttonsEl = document.querySelector('#buttons');
 
+//Divs
+const chooseTimezoneEl = document.querySelector('#choose-timezone');
 const form = document.querySelector('form');
-
+const searchByDateEl = document.querySelector('#search-by-date');
+const searchByNameEl = document.querySelector('#search-by-name');
 const output = document.querySelector('#output');
 
-document.querySelector('select#country').addEventListener('click', (e) => {
-    console.log(e.target);
-});
+//Input fields
+const daysEl = document.querySelector('#days');
+const monthsEl = document.querySelector('#months');
+const nameEl = document.querySelector('#name');
 
-//Handle Todays Name Day button, hide buttons and display timezone dropdown
+
+/*
+* Eventlisteners buttons
+*/
+
+//Todays Name Day button, hide buttons and display timezone dropdown
 buttonChooseToday.addEventListener('click', (e) => {
-    
-    document.querySelector('#choose-timezone').classList.remove('d-none');
-    document.querySelector('#buttons').classList.add('d-none');
+
+    chooseTimezoneEl.classList.remove('d-none');
+    buttonsEl.classList.add('d-none');
+
     document.querySelector('#timezone').setAttribute('required', '');
 
 });
 
-//Handle Search By Name-button, hide buttons and display possibility to search by name
+//Search By Name-button, hide buttons and display possibility to search by name
 buttonChooseByName.addEventListener('click', () => {
 
-    document.querySelector('#search-by-name').classList.remove('d-none');
-    document.querySelector('#buttons').classList.add('d-none');
-    document.querySelector('#name').setAttribute('required', '');
+    searchByNameEl.classList.remove('d-none');
+    buttonsEl.classList.add('d-none');
+    nameEl.setAttribute('required', '');
 
 });
 
-//Handle Search By Date-button, hide buttons and display possibility to search by date
+//Search By Date-button, hide buttons and display possibility to search by date
 buttonChooseByDate.addEventListener('click', () => {
 
-    document.querySelector('#search-by-date').classList.remove('d-none');
-    document.querySelector('#buttons').classList.add('d-none');
-    document.querySelector('#days').setAttribute('required', '');
-    document.querySelector('#months').setAttribute('required', '');
+    searchByDateEl.classList.remove('d-none');
+    buttonsEl.classList.add('d-none');
+    daysEl.setAttribute('required', '');
+    monthsEl.setAttribute('required', '');
+
 });
 
-//Handle Back-button, so the user can go back to the beginning
+//Back-button
 form.addEventListener('click', (e) => {
 
     if(e.target.textContent === 'Back'){
-        document.querySelector('#search-by-date').classList.add('d-none');
-        document.querySelector('#search-by-name').classList.add('d-none');
-        document.querySelector('#choose-timezone').classList.add('d-none');
-        document.querySelector('#buttons').classList.remove('d-none');
+
+        searchByDateEl.classList.add('d-none');
+        searchByNameEl.classList.add('d-none');
+        chooseTimezoneEl.classList.add('d-none');
+
+        daysEl.value = "";
+        monthsEl.value = "";
+        nameEl.value = "";
+
+        daysEl.removeAttribute('required');
+        monthsEl.removeAttribute('required');
+        nameEl.removeAttribute('required');
+
+        buttonsEl.classList.remove('d-none');
+
         output.innerHTML = '';
+        
     }
 });
 
-//When user clicks Search, check which 
+//Search/submit button, check which search the user chose 
 form.addEventListener('submit', (e) => {
 
     output.innerHTML = '';
 
     e.preventDefault();
 
-    const inputName = document.querySelector('#name').value.trim().toLowerCase();
-    const inputMonth = document.querySelector('#months').value;
-    const inputDay = document.querySelector('#days').value;
+    const inputName = nameEl.value.trim().toLowerCase();
+    const inputMonth = monthsEl.value;
+    const inputDay = daysEl.value;
     const inputCountry = document.querySelector('select#country').value;
     const inputTimezone = document.querySelector('select#timezone').value;
 
     if(inputName){
 
+        nameEl.removeAttribute('required');
+        nameEl.value = "";
+
         getNameDayByName(inputName, inputCountry);
-        document.querySelector('#name').removeAttribute('required');
-        document.querySelector('#name').value = "";
 
     } else if(inputMonth && inputDay){
-        document.querySelector('#days').removeAttribute('required');
-        document.querySelector('#months').removeAttribute('required');
+
+        daysEl.removeAttribute('required');
+        monthsEl.removeAttribute('required');
+
+        daysEl.value = "";
+        monthsEl.value = "";
+
         getNameDayByDate(inputMonth, inputDay, inputCountry);
-        
-        //Clear the date fields for new search
-        document.querySelector('#months').value = "";
-        document.querySelector('#days').value = "";
 
     } else if(inputCountry && inputTimezone){
-        console.log(e.target);
 
-        console.log(`country is ${inputCountry} and timezone is ${inputTimezone}`);
         getNameDayToday(inputTimezone, inputCountry);
     }
 });
 
-const calcNamesByDate = (names) => {
+/*
+* Render data to the DOM
+*/
 
-    const list = document.querySelector('#name-list');
-
-    const listItem = document.createElement('li');
-
-    console.log('names:', names);
-
-    names.forEach((name) => {
-
-        const nameArray = Object.values(name);
-
-        const nameByCountry = Object.values(nameArray[1]);
-
-        console.log(nameByCountry);
-
-        listItem.innerText = nameByCountry[0];
-        list.append(listItem);
-
-    });
-
-};
-
-//Show result of search by date in the DOM 
-const renderDateResult = (names, month, day) => {
-
-    const html =`
-    <div class="output-wrapper card col-md-6 mx-auto">
-        <div class="card-body">
-            <p class="card-title">The following has name day ${day}/${month}:</p>
-            <ul id="name-list"></ul>
-        </div>
-    </div>
-    `;
-
-    output.innerHTML = html;
-
-    calcNamesByDate(names);
-};
-
-//Show result of search by name in the DOM 
+//Render result of Search By Name in the DOM 
 const renderNameResult = (inputName, month, day, othersWithNameDay) => {
 
-    console.log('in renderNameresult', inputName, month, day);
-
-    console.log('in the rendernameresult function before html');
-
-    const html =`
+    //Check if other people have name day the same day
+    if(othersWithNameDay.length > 0){
+        const html =`
     <div class="output-wrapper card col-md-6 mx-auto">
         <div class="card-body">
             <h2 class="card-title">${inputName} has name day ${day}/${month}.</h2>
@@ -144,38 +130,65 @@ const renderNameResult = (inputName, month, day, othersWithNameDay) => {
     `;
 
     output.innerHTML += html;
+    } else{
+        const html =`
+        <div class="output-wrapper card col-md-6 mx-auto">
+            <div class="card-body">
+                <h2 class="card-title">${inputName} has name day ${day}/${month}.</h2>
+            </div>
+        </div>
+        `;
+
+        output.innerHTML += html;
+    }
+
 };
 
-const renderTodayResult = (names) => {
+//Find out name day depending on date
+const calcNamesByDate = (names, id, inputCountry) => {
+
+    const para = document.querySelector(id);
+
+    names.forEach((name) => {
+
+        para.innerText = name.namedays[inputCountry];
+
+    });
+
+};
+
+//Render result of Search By Date in the DOM 
+const renderDateResult = (names, month, day, inputCountry) => {
 
     const html =`
     <div class="output-wrapper card col-md-6 mx-auto">
-        <div class="card-body" id="names-today">
-            <h2 class="card-title">The following has name day today:</h2>
-            
+        <div class="card-body">
+            <h2 class="card-title">The following has name day ${day}/${month}:</h2>
+            <p class="card-text" id="names-by-date"></p>
         </div>
     </div>
     `;
 
     output.innerHTML = html;
 
-    const div = document.querySelector('#names-today');
+    calcNamesByDate(names, "#names-by-date", inputCountry);
+};
 
-    const para = document.createElement('p');
+//Render result of Search Name Day Today in the DOM 
+const renderTodayResult = (names, inputCountry) => {
 
-    names.forEach((name) => {
+    const html =`
+    <div class="output-wrapper card col-md-6 mx-auto">
+        <div class="card-body">
+            <h2 class="card-title">The following has name day today:</h2>          
+            <p class="card-text" id="names-today"></p>
+        </div>
+    </div>
+    `;
 
-        console.log(name);
+    output.innerHTML = html;
 
-        const nameArray = Object.values(name);
-
-        const nameByCountry = Object.values(nameArray[1]);
-
-        console.log(nameByCountry);
-
-        para.innerText = nameByCountry[0];
-        div.append(para);
-    }); 
+    calcNamesByDate(names, "#names-today", inputCountry);
 
 };
 

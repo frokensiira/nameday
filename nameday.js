@@ -9,27 +9,21 @@ const getNameDayByName = (inputName, inputCountry) => {
         return response.json();
     }).then(data => {
 
-        console.log('data result is', data.results);
         //If the result is empty, let the user know that the name does not exist as name day in chosen country
         if(data.results.length === 0){
             throw err;
         }
-
-        
         
         //Go through the array of object results and choose only the ones that is a perfect match to input
         data.results.forEach(object => {
             
             let arrayOfObject = object.name.split(', ');
-            console.log('new array of object is:', arrayOfObject);
             
             arrayOfObject.forEach(name => {
 
                 if(name.toLowerCase() === inputName.toLowerCase()){
 
                     let othersWithNameDay = arrayOfObject.filter((name) => {
-                        console.log('name is', name);
-
 
                         if(name.toLowerCase() !== inputName.toLowerCase()){
                             return true;
@@ -39,7 +33,7 @@ const getNameDayByName = (inputName, inputCountry) => {
                     renderNameResult(name, object.month, object.day, othersWithNameDay);
                 } 
                 
-            })
+            });
         });
 
     }).catch(err => { 
@@ -62,10 +56,10 @@ const getNameDayByDate = (month, day, inputCountry) => {
     }).then(data => {
 
         //Calling the function that output the results in the DOM
-        renderDateResult(data.data, month, day);
+        renderDateResult(data.data, month, day, inputCountry);
 
     }).catch(err => { 
-        //Let user know what error is causedthe name does not exist as name day in chosen country
+        //Let user know what the error is  
         output.innerHTML = `
         <div class="output-wrapper card-body alert alert-light card col-md-6 mx-auto" role="alert">
             <p class="card-title">${err}</p>
@@ -83,10 +77,10 @@ const getNameDayToday = (inputTimezone, inputCountry) => {
         return response.json();
     }).then(data => {
         //Calling the function that output the results in the DOM
-        renderTodayResult(data.data);
+        renderTodayResult(data.data, inputCountry);
 
     }).catch(err => { 
-        //Let user know what error is causedthe name does not exist as name day in chosen country
+        //Let user know what the error is  
         output.innerHTML = `
         <div class="output-wrapper card-body alert alert-light card col-md-6 mx-auto" role="alert">
             <p class="card-title">${err}</p>
@@ -95,97 +89,3 @@ const getNameDayToday = (inputTimezone, inputCountry) => {
     });
 };
 
-
-
-
-
-//Exempel
-
-//Today with timezone and country
-const timezone = 'https://api.abalin.net/today ?timezone=America/Toronto&country=dk';
-
-//Parametrar datum och land
-const byDay = 'https://api.abalin.net/namedays?country=us&month=7&day=15';
-
-//Parametrar namn och land
-const byName = 'https://api.abalin.net/getdate?name=John&country=us';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-            let rows = myArray.length;
-            console.log('find names function is called with parameter', myArray);
-            for(let i=0; i<rows; i++){
-                //console.log(myArray[i].name.split(', '));
-                let newArray = myArray[i].name.split(', ');
-                console.log(newArray);
-        
-                for(let n=0; n < myArray[i].name.split(', ').length; n++){
-                    if(newArray[n].toLowerCase() === inputName){
-                        
-                        let foundName = newArray[n];
-                        console.log('found name is', foundName);
-                        console.log('array with anna is', newArray);
-
-                        console.log(n);
-
-                        //console.log('index of this array is', newArray.indexOf());
-                    }
-                    
-                } */
-
-                
-
-        
-    
-/*         const findNames = () =>{
-
-            let rows = myArray.length;
-            console.log('find names function is called with parameter', myArray);
-            for(let i=0; i<rows; i++){
-                //console.log(myArray[i].name.split(', '));
-                let newArray = myArray[i].name.split(', ');
-                console.log(newArray);
-        
-                for(let n=0; n < myArray[i].name.split(', ').length; n++){
-                    if(newArray[n].toLowerCase() === inputName){
-                        
-                        let foundName = newArray[n];
-                        console.log('found name is', foundName);
-                        console.log('array with anna is', newArray);
-
-                        //return newArray;
-                    }
-                    
-                }
-
-                //return newArray;
-        };
-
-
-
-        console.log(findNames(myArray));
-        const result = findNames(myArray);
-        console.log('result is', result); */
-        
-
-            
-/*             let items = myArray[i].length;
-            console.log(i, items);
-            for(let n=0; n<items; n++){
-                //console.log(myArray[i][n] );
-            } */
