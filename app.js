@@ -17,7 +17,6 @@ const daysEl = document.querySelector('#days');
 const monthsEl = document.querySelector('#months');
 const nameEl = document.querySelector('#name');
 
-
 /*
 * Eventlisteners buttons
 */
